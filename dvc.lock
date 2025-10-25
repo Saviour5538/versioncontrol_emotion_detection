@@ -44,29 +44,29 @@ stages:
       nfiles: 2
     - path: src/features/feature_engineering.py
       hash: md5
-      md5: 3b4d9adac4d7f3dd6dfef47a680c66ad
-      size: 3644
+      md5: 9d4fe8e34e7758a9d8b37353d829f860
+      size: 3639
     params:
       params.yaml:
         feature_engineering.max_features: 70
     outs:
     - path: data/features
       hash: md5
-      md5: a96e69e3d265bce3f76f2ab1b40d36cf.dir
-      size: 1411538
+      md5: d918f060827a27720081ef5fab1c7d6b.dir
+      size: 3059893
       nfiles: 2
   train_model:
     cmd: python -m src.model.model_building
     deps:
     - path: data/features
       hash: md5
-      md5: a96e69e3d265bce3f76f2ab1b40d36cf.dir
-      size: 1411538
+      md5: d918f060827a27720081ef5fab1c7d6b.dir
+      size: 3059893
       nfiles: 2
     - path: src/model/model_building.py
       hash: md5
-      md5: f29ffd6e940e56b20211ee2dd074327d
-      size: 2689
+      md5: cee9ceffc6da22b1d335bb03b05cc019
+      size: 2691
     params:
       params.yaml:
         model_building.learning_rate: 0.2
@@ -74,26 +74,26 @@ stages:
     outs:
     - path: model.pkl
       hash: md5
-      md5: 02a224adb8116d7eb6da661f9ce6365e
-      size: 133168
+      md5: 8c0eecdfa297161ebdc7c904580c6a64
+      size: 128838
   model_evaluation:
     cmd: python -m src.model.model_evaluation
     deps:
     - path: data/features
       hash: md5
-      md5: a96e69e3d265bce3f76f2ab1b40d36cf.dir
-      size: 1411538
+      md5: d918f060827a27720081ef5fab1c7d6b.dir
+      size: 3059893
       nfiles: 2
     - path: model.pkl
       hash: md5
-      md5: 02a224adb8116d7eb6da661f9ce6365e
-      size: 133168
+      md5: 8c0eecdfa297161ebdc7c904580c6a64
+      size: 128838
     - path: src/model/model_evaluation.py
       hash: md5
-      md5: aa27b96e122e091b59b5810ea82f14f5
-      size: 2783
+      md5: 6b425b07693e358dd5ff4023138e6031
+      size: 2785
     outs:
     - path: metrics.json
       hash: md5
-      md5: 67b7f48457a3b912873915df0ed583a6
-      size: 142
+      md5: 345d771102800f5ee4b1874b5044a6a8
+      size: 144

@@ -76,7 +76,7 @@ def evaluate_model(model, X_test, y_test):
 def main():
     try:
         # Load test data and model
-        test_df = read_csv_file('./data/features/test_bow.csv')
+        test_df = read_csv_file('./data/features/test_tfidf.csv')
         X_test = test_df.iloc[:, :-1].values
         y_test = test_df.iloc[:, -1].values
 

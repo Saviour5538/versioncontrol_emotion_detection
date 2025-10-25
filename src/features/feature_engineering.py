@@ -2,7 +2,7 @@ import os
 import logging
 import yaml
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # ------------------------
 # Setup logging
@@ -52,15 +52,15 @@ def load_params(param_file='params.yaml'):
         raise
 
 
-def prepare_bow_features(train_texts, test_texts, max_features):
+def prepare_tfidf_features(train_texts, test_texts, max_features):
     try:
-        vectorizer = CountVectorizer(max_features=max_features)
+        vectorizer = TfidfVectorizer(max_features=max_features)
         X_train_bow = vectorizer.fit_transform(train_texts)
         X_test_bow = vectorizer.transform(test_texts)
-        logger.info(f"Bag-of-Words features created with max_features={max_features}")
+        logger.info(f"TFidf features created with max_features={max_features}")
         return X_train_bow, X_test_bow
     except Exception as e:
-        logger.error(f"Failed to create Bag-of-Words features: {e}")
+        logger.error(f"Failed to create Tfidf features: {e}")
         raise
 
 
@@ -92,16 +92,16 @@ def main():
         X_test = test_df['content'].fillna("").values
         y_test = test_df['sentiment'].values
 
-        # Generate Bag-of-Words features
-        X_train_bow, X_test_bow = prepare_bow_features(X_train, X_test, max_features)
+        # Generate tfidf features
+        X_train_tfidf, X_test_tfidf = prepare_tfidf_features(X_train, X_test, max_features)
 
         # Create feature DataFrames
-        train_features_df = create_feature_dataframe(X_train_bow, y_train)
-        test_features_df = create_feature_dataframe(X_test_bow, y_test)
+        train_features_df = create_feature_dataframe(X_train_tfidf, y_train)
+        test_features_df = create_feature_dataframe(X_test_tfidf, y_test)
 
         # Save features
-        save_csv_file(train_features_df, './data/features/train_bow.csv')
-        save_csv_file(test_features_df, './data/features/test_bow.csv')
+        save_csv_file(train_features_df, './data/features/train_tfidf.csv')
+        save_csv_file(test_features_df, './data/features/test_tfidf.csv')
 
         logger.info("Feature engineering completed successfully!")
 

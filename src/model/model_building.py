@@ -70,7 +70,7 @@ def main():
         params = load_params()
 
         # Load training data
-        train_df = read_csv_file('./data/features/train_bow.csv')
+        train_df = read_csv_file('./data/features/train_tfidf.csv')
         X_train = train_df.iloc[:, :-1].values
         y_train = train_df.iloc[:, -1].values
 
